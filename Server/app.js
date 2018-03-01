@@ -1,19 +1,31 @@
-var io = require('socket.io')(process.envPort||3000);
-var shortid = require("shortid")//new
+var io = require('socket.io')(process.envPort||3000)
+var shortid = require("shortid")
+var MongoClient = require("mongodb").MongoClient//new
+var url = "mongodb://localhost:27017/"//new
+
+var players = [];
+
+var dbObj;
 
 console.log("Server Started");
-console.log(shortid.generate());//new
 
-//var playerCount = 0;//removed
-var players = [];//new
+MongoClient.connect(url, function(error, client){
+	if(error)throw error;
+
+	dbObj = client.db("SocketLabData");
+
+	console.log("Database connected");
+})
+
+//console.log(shortid.generate());
 
 io.on('connection', function(socket){
-	var thisPlayerID = shortid.generate();//new
-	players.push(thisPlayerID);//new
+	var thisPlayerID = shortid.generate();
+	players.push(thisPlayerID);
 	
-	console.log('client connected spawning player with ID: ' + thisPlayerID);//new
+	console.log('client connected spawning player with ID: ' + thisPlayerID);
 	
-	socket.broadcast.emit('spawn player', {id:thisPlayerID});//new
+	socket.broadcast.emit('spawn player', {id:thisPlayerID});
 	//playerCount++;//remove
 	
 	// for(var i= 0; i<playerCount; i++){//remove
@@ -21,7 +33,7 @@ io.on('connection', function(socket){
 		// console.log("Adding a new player");
 	// }
 	
-	players.forEach(function(playerID){//new
+	players.forEach(function(playerID){
 		if(playerID == thisPlayerID) return;
 		
 		socket.emit('spawn player', {id:playerID});
@@ -32,16 +44,25 @@ io.on('connection', function(socket){
 		console.log("Player is logged in!");
 	});
 
-	socket.on('move', function(data){//new
+	socket.on('move', function(data){
 		data.id = thisPlayerID;
 		console.log("Player position is: " + JSON.stringify(data))
 		socket.broadcast.emit("move", data)
 	});
 	
 	socket.on('disconnect', function(){
-		console.log("Player " + thisPlayerID + " Disconnected");//new
-		players.splice(players.indexOf(thisPlayerID), 1);//new
-		socket.broadcast.emit("disconnected", {id:thisPlayerID});//new
+		console.log("Player " + thisPlayerID + " Disconnected");
+		players.splice(players.indexOf(thisPlayerID), 1);
+		socket.broadcast.emit("disconnected", {id:thisPlayerID});
 		//playerCount--;//remove
 	});
+
+	socket.on("data pass", function(data){
+		console.log(JSON.stringify(data))
+
+		dbObj.collection("playerData").save(data, function(error, response){
+			if(error)throw error;
+			console.log("saved data to server")
+		})
+	})
 });

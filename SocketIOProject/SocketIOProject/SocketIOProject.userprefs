@@ -1,12 +1,36 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CharacterMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\Server\app.js">
     <Files>
-      <File FileName="Assets\Network.cs" Line="56" Column="51" />
-      <File FileName="Assets\Scripts\CharacterMovement.cs" Line="48" Column="24" />
-      <File FileName="Assets\NetworkMovement.cs" Line="33" Column="2" />
-      <File FileName="..\..\Server\app.js" Line="39" Column="5" />
+      <File FileName="Assets\StreamingAssets\data.json" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerData.cs" Line="7" Column="2" />
+      <File FileName="Assets\Scripts\GameDataEditor.cs" Line="61" Column="55" />
+      <File FileName="..\..\Server\app.js" Line="63" Column="10" />
+      <File FileName="Assets\SocketIO\Scripts\SocketIO\SocketIOComponent.cs" Line="41" Column="2" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="SocketIOProject" expanded="True">
+            <Node name="Assembly-CSharp" expanded="True">
+              <Node name="Scripts" expanded="True" />
+              <Node name="SocketIO" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="SocketIO" expanded="True">
+                    <Node name="SocketIOComponent.cs" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State name="__root__">
+          <Node name="SocketIOProject" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
